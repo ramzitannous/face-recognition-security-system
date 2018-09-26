@@ -28,13 +28,13 @@ def getNames(dbType):
         return jsonify(blackListTrainer.readNames())
 
 
-@app.route("/<dbType>/images", methods=['POST'])
-def upload_file(dbType):
-    name = request.json["name"]
+@app.route("/<dbType>/<name>/images", methods=['POST'])
+def upload_file(name,dbType):
+    print(dbType,)
     if dbType == DBTYPES.WHITELIST:
         path = whiteListTrainer.imagesPath % name
     else:
-        blackListTrainer.imagesPath % name
+        path=blackListTrainer.imagesPath % name
     if not os.path.exists(path):
         os.mkdir(path)
 
