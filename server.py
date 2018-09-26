@@ -1,7 +1,7 @@
 import concurrent.futures as Processor
 import os
 
-from flask import Flask, request, flash, redirect, Response
+from flask import Flask, request, flash, redirect, Response, jsonify
 from werkzeug.utils import secure_filename
 
 from constants import DBTYPES
@@ -23,9 +23,9 @@ def allowed_file(filename):
 @app.route("/<dbType>/names")
 def getNames(dbType):
     if dbType == DBTYPES.WHITELIST:
-        return whiteListTrainer.readNames()
+        return jsonify(whiteListTrainer.readNames())
     else:
-        return blackListTrainer.readNames()
+        return jsonify(blackListTrainer.readNames())
 
 
 @app.route("/<dbType>/images", methods=['POST'])
@@ -69,7 +69,7 @@ def addUser(dbType):
 
 
 @app.route("/<dbType>/remove_name", methods=['POST'])
-def addUser(dbType):
+def removeUser(dbType):
     if request.method == "POST":
         try:
             name = request.json["name"]
@@ -83,7 +83,7 @@ def addUser(dbType):
 
 
 @app.route("/<dbType>/train", methods=['POST'])
-def addUser(dbType):
+def train(dbType):
     if request.method == "POST":
         try:
             name = request.json["name"]
@@ -97,7 +97,7 @@ def addUser(dbType):
 
 
 @app.route("/<dbType>/train_image", methods=['POST'])
-def addUser(dbType):
+def trainImage(dbType):
     if request.method == "POST":
         try:
             name = request.json["name"]

@@ -1,5 +1,5 @@
 class Paths:
-    PROJECT_PATH = "/home/ramzi/Desktop/Face Recognition/"
+    PROJECT_PATH = "/home/ramzi/Desktop/face-recognition/"
     WHITELIST_NAMES = PROJECT_PATH + "dataset/whitelist.csv"
     BLACKLIST_NAMES = PROJECT_PATH + "dataset/blacklist.csv"
     WHITELIST_ENCODING_FILE = PROJECT_PATH + "dataset/encodings/whitelist/%s.csv"
