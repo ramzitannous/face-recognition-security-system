@@ -1,8 +1,11 @@
+import concurrent.futures as Processor
+import os
+
 from flask import Flask, request, flash, redirect, Response
 from werkzeug.utils import secure_filename
 
 from constants import DBTYPES
-from train import Trainer, os
+from train import Trainer
 
 app = Flask(__name__)
 app.secret_key = "841578451845asdasdasfasf"
@@ -100,9 +103,11 @@ def addUser(dbType):
             name = request.json["name"]
             image = request.json["image"]
             if dbType == DBTYPES.WHITELIST:
-                whiteListTrainer.trainImage(name, image)
+                with Processor.ProcessPoolExecutor() as Executor:
+                    Executor.map(whiteListTrainer.trainImage(name, image))
             else:
-                blackListTrainer.trainImage(name, image)
+                with Processor.ProcessPoolExecutor() as Executor:
+                    Executor.map(blackListTrainer.trainImage(name, image))
             return Response(status=200)
         except:
             return Response(status=500)

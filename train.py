@@ -64,6 +64,7 @@ class Trainer:
         for image in images:
             encoding = self.__train(name, image)
             encodings.append(encoding)
+            yield True
         utils.saveEncodings(self.encodingPath % name, encoding)
 
     def __resizeAndGrey(self, imagePath):
